@@ -1,0 +1,71 @@
+{
+  "name": "small-test-set",
+  "version": "1.0.0",
+  "description": "10-query test fixture for unit tests",
+  "queries": [
+    {
+      "query": "d-separation",
+      "relevant_ids": ["49ead2d9-5142-4260-ba8c-8932386bd254", "0e343da8-f112-4e5e-88ac-c5b5db80611f"],
+      "domain": "causal_inference",
+      "difficulty": "easy"
+    },
+    {
+      "query": "instrumental variable identification",
+      "relevant_ids": ["25c2cee2-acee-4f16-abdc-e56e206e5078", "4ee739ca-5496-45e7-8c13-51893f32a9a3"],
+      "domain": "causal_inference",
+      "difficulty": "easy"
+    },
+    {
+      "query": "ARIMA model",
+      "relevant_ids": ["acd07749-a833-4471-86be-ee9e4fd59128", "da00f78c-a437-4eda-ad0c-6067233c36e7"],
+      "domain": "time_series",
+      "difficulty": "easy"
+    },
+    {
+      "query": "Kalman filter",
+      "relevant_ids": ["2ae913a8-0e3f-4036-9d87-97377c350700", "204384a5-c26a-408c-b4bc-cc35e2ead4d2"],
+      "domain": "time_series",
+      "difficulty": "easy"
+    },
+    {
+      "query": "few-shot learning",
+      "relevant_ids": ["f933265c-d9c6-4e2d-8613-72605419794a", "e99e66b1-2cab-4fb1-aa91-ca28a5249f8b"],
+      "domain": "rag_llm",
+      "difficulty": "easy"
+    },
+    {
+      "query": "scaling laws",
+      "relevant_ids": ["131b888a-f936-4d96-9f89-6db708729d39", "df8aad28-b7bd-48ff-bf7b-805ffcf9ba0f"],
+      "domain": "rag_llm",
+      "difficulty": "easy"
+    },
+    {
+      "query": "A/B testing",
+      "relevant_ids": ["bde62d90-d2c7-4297-91bb-f3cf008f75aa", "2cf4e9b3-f9d3-44d0-aae4-69a59040f88b"],
+      "domain": "interview_prep",
+      "difficulty": "easy"
+    },
+    {
+      "query": "sample size calculation",
+      "relevant_ids": ["909b141a-9196-4565-9475-891695b4a2cf", "32a1fabf-a09e-4380-9e9d-165186ad84f5"],
+      "domain": "interview_prep",
+      "difficulty": "easy"
+    },
+    {
+      "query": "mediation analysis",
+      "relevant_ids": ["f657e16b-8d1c-44ba-aa4b-23bb97540b3a", "ac3d7172-7749-4291-9694-9a081393e500"],
+      "domain": "causal_inference",
+      "difficulty": "easy",
+      "relevance_grades": {
+        "f657e16b-8d1c-44ba-aa4b-23bb97540b3a": 3,
+        "ac3d7172-7749-4291-9694-9a081393e500": 2
+      }
+    },
+    {
+      "query": "vector autoregression",
+      "relevant_ids": ["9f40c01c-fc32-443c-a591-5c83a41f488b", "853f4396-66a1-4ea8-90a7-8bf35015d7af"],
+      "domain": "time_series",
+      "difficulty": "medium"
+    }
+  ]
+}

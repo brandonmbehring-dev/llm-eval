@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-eval"
+version = "0.1.0"
+description = "Statistical RAG evaluation framework with golden-set metrics and drift detection"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Brandon Behring" },
+]
+keywords = ["rag", "evaluation", "llm", "retrieval", "metrics", "drift-detection"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pyyaml>=6.0",
+    "rich>=13.0",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+scipy = [
+    "scipy>=1.11",
+]
+research-kb = [
+    "llm-eval-research-kb",
+]
+
+[project.scripts]
+llm-eval = "llm_eval.cli.main:app"
+
+[project.entry-points."llm_eval.adapters"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llm_eval", "src/llm_eval_research_kb"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "yaml.*"
+ignore_missing_imports = true
