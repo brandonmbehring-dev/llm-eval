@@ -50,7 +50,17 @@ class ResearchKBAdapter:
         self._loop: asyncio.AbstractEventLoop | None = None
 
         # Add research-kb packages to path
-        root = research_kb_root or Path.home() / "Claude" / "research-kb"
+        if research_kb_root is None:
+            env_root = __import__("os").environ.get("RESEARCH_KB_ROOT")
+            if env_root:
+                root = Path(env_root)
+            else:
+                raise ValueError(
+                    "research_kb_root is required. Pass it explicitly or set "
+                    "RESEARCH_KB_ROOT environment variable."
+                )
+        else:
+            root = research_kb_root
         for pkg in ["pdf-tools", "storage", "common", "contracts"]:
             pkg_path = str(root / "packages" / pkg / "src")
             if pkg_path not in sys.path:
