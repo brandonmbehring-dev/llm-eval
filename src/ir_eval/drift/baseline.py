@@ -100,14 +100,16 @@ class BaselineStore:
         for path in sorted(self._base_dir.glob("*.json")):
             with open(path) as f:
                 data = json.load(f)
-            baselines.append({
-                "golden_set_name": data["run"]["golden_set_name"],
-                "adapter_name": data["run"]["adapter_name"],
-                "timestamp": data["run"]["timestamp"],
-                "set_at": data["set_at"],
-                "notes": data.get("notes", ""),
-                "file": str(path),
-            })
+            baselines.append(
+                {
+                    "golden_set_name": data["run"]["golden_set_name"],
+                    "adapter_name": data["run"]["adapter_name"],
+                    "timestamp": data["run"]["timestamp"],
+                    "set_at": data["set_at"],
+                    "notes": data.get("notes", ""),
+                    "file": str(path),
+                }
+            )
 
         return baselines
 

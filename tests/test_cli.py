@@ -36,10 +36,15 @@ class TestHistoryCommand:
     """ir-eval history <golden-set-name>."""
 
     def test_no_baselines(self, tmp_path: Path) -> None:
-        result = runner.invoke(app, [
-            "history", "nonexistent",
-            "--store-dir", str(tmp_path / "baselines"),
-        ])
+        result = runner.invoke(
+            app,
+            [
+                "history",
+                "nonexistent",
+                "--store-dir",
+                str(tmp_path / "baselines"),
+            ],
+        )
         assert "No baselines found" in result.output
 
 
@@ -53,27 +58,46 @@ class TestBaselineCommands:
         store_dir = tmp_path / "baselines"
 
         # Set
-        result = runner.invoke(app, [
-            "baseline", "set", str(run_path),
-            "--notes", "test baseline",
-            "--store-dir", str(store_dir),
-        ])
+        result = runner.invoke(
+            app,
+            [
+                "baseline",
+                "set",
+                str(run_path),
+                "--notes",
+                "test baseline",
+                "--store-dir",
+                str(store_dir),
+            ],
+        )
         assert result.exit_code == 0
         assert "Baseline set" in result.output
 
         # Show
-        result = runner.invoke(app, [
-            "baseline", "show", "test-set",
-            "--store-dir", str(store_dir),
-        ])
+        result = runner.invoke(
+            app,
+            [
+                "baseline",
+                "show",
+                "test-set",
+                "--store-dir",
+                str(store_dir),
+            ],
+        )
         assert result.exit_code == 0
         assert "test-run-001" in result.output
 
     def test_show_nonexistent(self, tmp_path: Path) -> None:
-        result = runner.invoke(app, [
-            "baseline", "show", "nonexistent",
-            "--store-dir", str(tmp_path / "baselines"),
-        ])
+        result = runner.invoke(
+            app,
+            [
+                "baseline",
+                "show",
+                "nonexistent",
+                "--store-dir",
+                str(tmp_path / "baselines"),
+            ],
+        )
         assert result.exit_code == 1
         assert "No baseline" in result.output
 
@@ -96,9 +120,16 @@ class TestCompareCommand:
         sample_eval_run.to_json(path_a)
         sample_eval_run.to_json(path_b)
 
-        result = runner.invoke(app, [
-            "compare", str(path_a), str(path_b), "--format", "json",
-        ])
+        result = runner.invoke(
+            app,
+            [
+                "compare",
+                str(path_a),
+                str(path_b),
+                "--format",
+                "json",
+            ],
+        )
         assert result.exit_code == 0
         import json
 
@@ -111,8 +142,15 @@ class TestCompareCommand:
         sample_eval_run.to_json(path_a)
         sample_eval_run.to_json(path_b)
 
-        result = runner.invoke(app, [
-            "compare", str(path_a), str(path_b), "--format", "markdown",
-        ])
+        result = runner.invoke(
+            app,
+            [
+                "compare",
+                str(path_a),
+                str(path_b),
+                "--format",
+                "markdown",
+            ],
+        )
         assert result.exit_code == 0
         assert "# Comparison" in result.output

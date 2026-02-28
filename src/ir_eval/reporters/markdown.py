@@ -45,11 +45,13 @@ def report_eval_run(run: EvalRun) -> str:
     # Missed queries
     misses = [qr for qr in run.query_results if not qr.hit]
     if misses:
-        lines.extend([
-            "",
-            "## Missed Queries",
-            "",
-        ])
+        lines.extend(
+            [
+                "",
+                "## Missed Queries",
+                "",
+            ]
+        )
         for qr in misses:
             lines.append(f"- {qr.query.query}")
 
@@ -79,10 +81,12 @@ def report_comparison(comparison: dict[str, Any]) -> str:
         lines.append(f"| {metric} | {emoji}{delta:.4f} | {pct_str} |")
 
     summary = comparison["summary"]
-    lines.extend([
-        "",
-        f"**Summary**: {summary['wins']} wins, {summary['losses']} losses, {summary['ties']} ties",
-    ])
+    lines.extend(
+        [
+            "",
+            f"**Summary**: {summary['wins']} wins, {summary['losses']} losses, {summary['ties']} ties",
+        ]
+    )
 
     return "\n".join(lines)
 
@@ -123,9 +127,11 @@ def report_drift(drift_results: list[DriftResult]) -> str:
         default=DriftSeverity.INFO,
         key=lambda s: list(DriftSeverity).index(s),
     )
-    lines.extend([
-        "",
-        f"**Overall**: {severity_emoji[max_severity]}",
-    ])
+    lines.extend(
+        [
+            "",
+            f"**Overall**: {severity_emoji[max_severity]}",
+        ]
+    )
 
     return "\n".join(lines)

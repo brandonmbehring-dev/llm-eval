@@ -42,9 +42,7 @@ def confusion_matrix(
     if categories is None:
         categories = sorted(set(rater1) | set(rater2))
 
-    matrix: dict[str, dict[str, int]] = {
-        c1: {c2: 0 for c2 in categories} for c1 in categories
-    }
+    matrix: dict[str, dict[str, int]] = {c1: {c2: 0 for c2 in categories} for c1 in categories}
     for label1, label2 in zip(rater1, rater2, strict=False):
         matrix[label1][label2] += 1
 

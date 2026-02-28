@@ -80,10 +80,12 @@ class TestRunEvaluation:
         q2 = GoldenQuery(query="q2", relevant_ids=("b",))
         gs = GoldenSet(name="test", version="1.0", queries=(q1, q2))
 
-        adapter = StubAdapter({
-            "q1": [RetrievedItem(id="a", rank=1, score=0.9)],
-            "q2": [RetrievedItem(id="x", rank=1, score=0.9)],  # miss
-        })
+        adapter = StubAdapter(
+            {
+                "q1": [RetrievedItem(id="a", rank=1, score=0.9)],
+                "q2": [RetrievedItem(id="x", rank=1, score=0.9)],  # miss
+            }
+        )
 
         run = run_evaluation(gs, adapter, top_k=5)
         assert run.metrics["hit_rate"] == 0.5

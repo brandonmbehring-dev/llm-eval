@@ -88,6 +88,7 @@ def bootstrap_ci(
         raise ValueError("Cannot compute CI for empty values")
 
     if statistic_fn is None:
+
         def statistic_fn(v: Sequence[float]) -> float:
             return sum(v) / len(v)
 
@@ -156,6 +157,7 @@ def paired_bootstrap_test(
         raise ValueError("Cannot test empty values")
 
     if statistic_fn is None:
+
         def statistic_fn(v: Sequence[float]) -> float:
             return sum(v) / len(v)
 
@@ -265,11 +267,7 @@ def fisher_exact_test(
 
     def _hypergeom_pmf(k: int) -> float:
         """Probability mass function of hypergeometric distribution."""
-        log_p = (
-            _log_comb(row1, k)
-            + _log_comb(n - row1, col1 - k)
-            - _log_comb(n, col1)
-        )
+        log_p = _log_comb(row1, k) + _log_comb(n - row1, col1 - k) - _log_comb(n, col1)
         return math.exp(log_p)
 
     # Compute p-value: sum of all probabilities <= P(observed)
@@ -344,7 +342,7 @@ def mcnemar_test(
     # P(X <= min_count) where X ~ Binomial(n_discordant, 0.5)
     p_tail = 0.0
     for k in range(min_count + 1):
-        p_tail += math.comb(n_discordant, k) * (0.5 ** n_discordant)
+        p_tail += math.comb(n_discordant, k) * (0.5**n_discordant)
 
     p_value = min(2.0 * p_tail, 1.0)
 

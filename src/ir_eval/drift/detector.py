@@ -121,21 +121,25 @@ class DriftDetector:
         hr_delta = current_hr - baseline_hr
         hr_pct = (hr_delta / baseline_hr * 100) if baseline_hr > 0 else 0.0
 
-        results.append(DriftResult(
-            metric_name="hit_rate",
-            baseline_value=baseline_hr,
-            current_value=current_hr,
-            delta=hr_delta,
-            delta_pct=hr_pct,
-            p_value=mcnemar_result.p_value,
-            severity=self._classify_severity(hr_pct, mcnemar_result.p_value),
-            test_name="mcnemar",
-        ))
+        results.append(
+            DriftResult(
+                metric_name="hit_rate",
+                baseline_value=baseline_hr,
+                current_value=current_hr,
+                delta=hr_delta,
+                delta_pct=hr_pct,
+                p_value=mcnemar_result.p_value,
+                severity=self._classify_severity(hr_pct, mcnemar_result.p_value),
+                test_name="mcnemar",
+            )
+        )
 
         # --- MRR (with paired bootstrap) ---
         mrr_test = paired_bootstrap_test(
-            baseline_rr, current_rr,
-            n_bootstrap=self.n_bootstrap, seed=self.seed,
+            baseline_rr,
+            current_rr,
+            n_bootstrap=self.n_bootstrap,
+            seed=self.seed,
         )
         mrr_ci = bootstrap_ci(
             [c - b for b, c in zip(baseline_rr, current_rr, strict=False)],
@@ -149,23 +153,27 @@ class DriftDetector:
         mrr_delta = current_mrr - baseline_mrr
         mrr_pct = (mrr_delta / baseline_mrr * 100) if baseline_mrr > 0 else 0.0
 
-        results.append(DriftResult(
-            metric_name="mrr",
-            baseline_value=baseline_mrr,
-            current_value=current_mrr,
-            delta=mrr_delta,
-            delta_pct=mrr_pct,
-            p_value=mrr_test.p_value,
-            ci_lower=mrr_ci.lower,
-            ci_upper=mrr_ci.upper,
-            severity=self._classify_severity(mrr_pct, mrr_test.p_value),
-            test_name="paired_bootstrap",
-        ))
+        results.append(
+            DriftResult(
+                metric_name="mrr",
+                baseline_value=baseline_mrr,
+                current_value=current_mrr,
+                delta=mrr_delta,
+                delta_pct=mrr_pct,
+                p_value=mrr_test.p_value,
+                ci_lower=mrr_ci.lower,
+                ci_upper=mrr_ci.upper,
+                severity=self._classify_severity(mrr_pct, mrr_test.p_value),
+                test_name="paired_bootstrap",
+            )
+        )
 
         # --- NDCG (with paired bootstrap) ---
         ndcg_test = paired_bootstrap_test(
-            baseline_ndcg, current_ndcg,
-            n_bootstrap=self.n_bootstrap, seed=self.seed,
+            baseline_ndcg,
+            current_ndcg,
+            n_bootstrap=self.n_bootstrap,
+            seed=self.seed,
         )
         ndcg_ci = bootstrap_ci(
             [c - b for b, c in zip(baseline_ndcg, current_ndcg, strict=False)],
@@ -179,17 +187,19 @@ class DriftDetector:
         ndcg_delta = current_ndcg_mean - baseline_ndcg_mean
         ndcg_pct = (ndcg_delta / baseline_ndcg_mean * 100) if baseline_ndcg_mean > 0 else 0.0
 
-        results.append(DriftResult(
-            metric_name="ndcg",
-            baseline_value=baseline_ndcg_mean,
-            current_value=current_ndcg_mean,
-            delta=ndcg_delta,
-            delta_pct=ndcg_pct,
-            p_value=ndcg_test.p_value,
-            ci_lower=ndcg_ci.lower,
-            ci_upper=ndcg_ci.upper,
-            severity=self._classify_severity(ndcg_pct, ndcg_test.p_value),
-            test_name="paired_bootstrap",
-        ))
+        results.append(
+            DriftResult(
+                metric_name="ndcg",
+                baseline_value=baseline_ndcg_mean,
+                current_value=current_ndcg_mean,
+                delta=ndcg_delta,
+                delta_pct=ndcg_pct,
+                p_value=ndcg_test.p_value,
+                ci_lower=ndcg_ci.lower,
+                ci_upper=ndcg_ci.upper,
+                severity=self._classify_severity(ndcg_pct, ndcg_test.p_value),
+                test_name="paired_bootstrap",
+            )
+        )
 
         return results

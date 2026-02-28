@@ -52,8 +52,10 @@ class TestBootstrapCI:
     def test_custom_statistic(self) -> None:
         """Custom statistic function (median)."""
         values = [1.0, 2.0, 100.0]  # Skewed
+
         def median_fn(v):
             return sorted(v)[len(v) // 2]
+
         ci = bootstrap_ci(values, statistic_fn=median_fn, seed=42)
         # Median of [1, 2, 100] = 2
         assert ci.estimate == 2.0

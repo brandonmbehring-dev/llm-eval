@@ -67,12 +67,14 @@ def compare_runs(run_a: EvalRun, run_b: EvalRun) -> dict[str, Any]:
         else:
             ties += 1
 
-        per_query_changes.append({
-            "query": query_text,
-            "a_hit": a_hit,
-            "b_hit": b_hit,
-            "rr_delta": b_rr - a_rr,
-        })
+        per_query_changes.append(
+            {
+                "query": query_text,
+                "a_hit": a_hit,
+                "b_hit": b_hit,
+                "rr_delta": b_rr - a_rr,
+            }
+        )
 
     return {
         "run_a_id": run_a.id,
