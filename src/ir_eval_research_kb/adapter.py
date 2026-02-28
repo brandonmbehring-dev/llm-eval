@@ -105,7 +105,7 @@ class ResearchKBAdapter:
         """
         self._ensure_init()
 
-        from research_kb_storage import SearchQuery, search_hybrid  # type: ignore[import-not-found]
+        from research_kb_storage import SearchQuery, search_hybrid
 
         query_embedding = self._embed_client.embed_query(query)
 

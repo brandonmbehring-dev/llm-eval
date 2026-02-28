@@ -176,7 +176,8 @@ def evaluate_from_results(
         retrieved = result_set.lookup(golden_query.query)
         if not retrieved:
             raise ValueError(
-                f"No results found for query '{golden_query.query}' in result set '{result_set.name}'"
+                f"No results found for query '{golden_query.query}' "
+                f"in result set '{result_set.name}'"
             )
 
         metrics = _evaluate_query(
