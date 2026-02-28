@@ -84,7 +84,8 @@ def report_comparison(comparison: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            f"**Summary**: {summary['wins']} wins, {summary['losses']} losses, {summary['ties']} ties",
+            f"**Summary**: {summary['wins']} wins, "
+            f"{summary['losses']} losses, {summary['ties']} ties",
         ]
     )
 
